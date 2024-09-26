@@ -47,7 +47,7 @@ Este projeto é um backend desenvolvido em Laravel, com suporte para o cadastro,
 2. Entre no diretório do projeto:
 
     ```bash
-    cd mundpay_test
+    cd api_laravel_test
     ```
 
 3. Instale as dependências do projeto com o Composer:
