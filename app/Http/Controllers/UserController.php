@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 
+
 class UserController extends Controller {
 
     //Lista todos os Usuarios existentes em formato JSON
@@ -113,5 +114,8 @@ class UserController extends Controller {
             'user'=> $user->makeHidden(['password']) #oculta a senha no retorno
         ], 200);
 
+    }
+    public function me(UserRequest $request){
+        return response()->json($request->user());
     }
 }
