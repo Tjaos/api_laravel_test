@@ -41,7 +41,7 @@ Este projeto é um backend desenvolvido em Laravel, com suporte para o cadastro,
 1. Clone o repositório:
 
     ```bash
-    git clone https://github.com/Tjaos/mundpay_test.git
+    git clone https://github.com/Tjaos/api_laravel_test.git
     ```
 
 2. Entre no diretório do projeto:
