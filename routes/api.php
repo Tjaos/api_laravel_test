@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/users', [UserController::class, 'index']); //GET - http://localhost:8000/api/users
 
-Route::post('/users', [UserController::class, 'register']); //POST -> http://localhost:8000/api/register
+Route::post('/users', [UserController::class, 'store']); //POST -> http://localhost:8000/api/users
 
-
+Route::put('/users/{user}', [UserController::class, 'update']); //PUT -> http://localhost:8000/api/users/1
 
