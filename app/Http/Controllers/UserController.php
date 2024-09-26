@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller {
-    public function register(Request $request){
-        try {
-            #dataValidate
-            $request->validate([
-                'name'=> 'required|string|max:255',
-                'lastname'=>'required|string|max:255',
-                'email'=>'required|email|max:255|unique:users',
-                'password'=>'required|string|min:8',
-            ]);
-    
+
+    public function index() : JsonResponse{
+
+        $users = User::orderBy('id', 'DESC')->get();
+        return response()->json([
+            'status'=>true,
+            'users'=> $users,
+        ], 200);
+    }
+
+
+    public function register(UserRequest $request){
+        try {    
             #userCreate
             $user = User::create([
                 'name' => $request->name,
@@ -39,9 +42,5 @@ class UserController extends Controller {
         }
     }
     
-
-public function me(Request $request){
-    return response()->json($request->user());
-}
 
 }

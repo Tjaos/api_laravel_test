@@ -6,12 +6,9 @@ use App\Http\Controllers\UserController;
 
 
 
-Route::get('/users', function (Request $request) {
-    return response()->json([
-        'status'=>true,
-        'message'=> 'Listar Usuários',
-    ], 200);
-});
+Route::get('/users', [UserController::class, 'index']); //GET - http://localhost:8000/api/users
+
+Route::post('/users', [UserController::class, 'register']); //POST -> http://localhost:8000/api/register
 
 
-Route::post('/register', [UserController::class, 'register']);
+
