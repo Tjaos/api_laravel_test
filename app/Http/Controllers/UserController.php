@@ -50,7 +50,12 @@ class UserController extends Controller {
         }
     }
     
-    //Atualizar os dados dos usuários através de seu id
+      /**
+     * Editar usuário no banco de dados.
+     * 
+     * @param \App\Models\User $user o usuario a ser editado.
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(UserRequest $request, User $user) : JsonResponse
     {
         try{
@@ -77,4 +82,36 @@ class UserController extends Controller {
         ], 200);
     }
 
+    /**
+     * Excluir usuário no banco de dados.
+     * 
+     * @param \App\Models\User $user o usuario a ser excluído.
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy( User $user) : JsonResponse
+    {
+        try{
+            //Apaga o registro no banco de dados
+            $user->delete();
+
+            //Retorna os dados do usuario deletado e uma mensagem de sucesso!
+            return response()->json([
+                'message' => 'Usuário deletado com sucesso!',
+                'user'=> $user->makeHidden(['password']) #oculta a senha no retorno
+            ], 200);
+
+        }catch(Exception $e){
+            return response()->json([
+                'error' => 'Erro ao excluir o usuário.',
+                'message' => $e->getMessage()
+            ], 400);
+        }
+
+
+        return response()->json([
+            'message' => 'Usuário excluído com sucesso!',
+            'user'=> $user->makeHidden(['password']) #oculta a senha no retorno
+        ], 200);
+
+    }
 }

@@ -12,3 +12,5 @@ Route::post('/users', [UserController::class, 'store']); //POST -> http://localh
 
 Route::put('/users/{user}', [UserController::class, 'update']); //PUT -> http://localhost:8000/api/users/1
 
+Route::delete('/users/{user}', [UserController::class, 'destroy']); //DELETE -> http://localhost:8000/api/users/1
+
