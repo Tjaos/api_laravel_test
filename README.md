@@ -168,6 +168,46 @@ Abaixo estão listadas as rotas disponíveis na API, juntamente com seus método
 - **DELETE** `/products/{product}`
     - Remove o produto especificado.
 
+## Testando com o Postman
+
+Para facilitar os testes da API, um arquivo de coleção do Postman foi exportado e está disponível para download. Esse arquivo contém todas as rotas da API com exemplos de requisições e configurações.
+
+### Baixar a Coleção
+
+- [Clique aqui para baixar a coleção do Postman](caminho/para/seu/arquivo/Postman_Collection.json)
+
+### Como Usar a Coleção no Postman
+
+1. **Importar a Coleção:**
+    - Abra o Postman.
+    - Clique no botão "Importar" no canto superior esquerdo.
+    - Selecione o arquivo `Postman_Collection.json` que você baixou.
+    - Clique em "Importar" para adicionar a coleção ao Postman.
+
+2. **Configurar a URL Base:**
+    - Verifique se a URL base da API está correta nas configurações da coleção.
+    - A URL base deve ser `http://localhost:8000/api`, caso esteja rodando a API localmente.
+
+3. **Executar as Requisições:**
+    - Na coleção importada, você encontrará todas as rotas disponíveis.
+    - Clique na requisição que deseja testar.
+    - Ajuste os parâmetros e o corpo da requisição conforme necessário.
+    - Clique em "Enviar" para executar a requisição e visualizar a resposta.
+
+4. **Verificar as Respostas:**
+    - Após enviar uma requisição, verifique a aba de "Resposta" para ver os dados retornados pela API.
+    - Você pode verificar o código de status HTTP, o corpo da resposta e os headers.
+
+### Exemplos de Requisições
+
+A coleção inclui exemplos para as seguintes operações:
+
+- **Login**
+- **Cadastro de Usuários**
+- **Edição de Produtos**
+- **Visualização de Produtos**
+*<p>fique a vontade para modificar</p>*
+
 
 
 ## Executando a Aplicação
