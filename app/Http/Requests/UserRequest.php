@@ -17,10 +17,10 @@ class UserRequest extends FormRequest
     }
 
     /**
-     * Manipular as falhas de valida;'ao e retornar uma resposta JSON com os erros de validação.
-     * 
+     * Manipular as falhas de validação e retornar uma resposta JSON com os erros de validação.
+     *
      * @param \illuminate\Contracts\Validation\Validator  $validator -> o objeto de validação que contém os erros de validação
-     * 
+     *
      * @throws \illuminate\Http\Exceptions\HttpResponseException
      */
 
@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
         throw new HttpResponseException(response()->json([
             'status' => false,
             'erros' => $validator->errors(),
-        ], 422)); //O c[odigo de status 422 significa "Unprocessable Entity". É usado quando o servidor entende a requisição do cliente, mas não pode processá-la por erros de validação.
+        ], 422)); //O código de status 422 significa "Unprocessable Entity". É usado quando o servidor entende a requisição do cliente, mas não pode processá-la por erros de validação.
      }
 
 
@@ -48,7 +48,7 @@ class UserRequest extends FormRequest
 
     /**
      * Retorna as mensagens de erro personalizadas para as regras de validação.
-     * 
+     *
      * @return array
      */
     public function messages():array{
