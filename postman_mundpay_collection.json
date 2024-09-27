@@ -215,6 +215,15 @@
 				},
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://127.0.0.1:8000/api/logout/",
 					"protocol": "http",
@@ -268,7 +277,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/products/",
+					"raw": "http://127.0.0.1:8000/api/products/4",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -280,7 +289,7 @@
 					"path": [
 						"api",
 						"products",
-						""
+						"4"
 					]
 				}
 			},
@@ -317,23 +326,23 @@
 					"formdata": [
 						{
 							"key": "name",
-							"value": "Curso de Javascript2",
+							"value": "Viagem à Salvador",
 							"type": "text"
 						},
 						{
 							"key": "description",
-							"value": "Um curso básico de Javascript com duração de 72 horas",
+							"value": "Uma viagem para as praia de Salvador com hospedagem e alimentação inclusa durante 3 dias ",
 							"type": "text"
 						},
 						{
 							"key": "price",
-							"value": "36.99",
+							"value": "500",
 							"type": "text"
 						},
 						{
 							"key": "image",
 							"type": "file",
-							"src": "postman-cloud:///1ef7cdbd-60c0-4a10-9afc-e1051ead09b5"
+							"src": "/C:/Users/th832/OneDrive/Imagens/fotos-de-salvador-farol-da-barra.jpg"
 						}
 					]
 				},
@@ -412,7 +421,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "7|4XJuVVL4eEBU48R8ef3fiIQVqM4SR7aegagmY6NE84623447",
+							"value": "10|s5ewtFnC5U9y9oqwCZx8Y0XVESnzIIORjCO6RsD9fb9a7a8a",
 							"type": "string"
 						}
 					]
@@ -435,7 +444,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/products/1",
+					"raw": "http://127.0.0.1:8000/api/products/10",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -447,7 +456,41 @@
 					"path": [
 						"api",
 						"products",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products index",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "9|47R1MkBYjkUV7wp4jhQL9FKdcKWEYaGwhHakVUSTb51e7e15",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/products/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
 						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"products",
+						""
 					]
 				}
 			},
