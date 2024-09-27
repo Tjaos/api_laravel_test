@@ -39,7 +39,10 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::delete('/products/{product}', [ProductController::class, 'destroy']);
 });
 
-
+//Rota para a imagem
+Route::get('/storage/{filename}', function ($filename) {
+    return response()->file(storage_path('app/public/' . $filename));
+});
 
 
 

@@ -27,21 +27,25 @@ class ProductController extends Controller
 
     public function show($id): JsonResponse
     {
-       $product = Product::find($id);
+        $product = Product::find($id);
 
-        try {
-            return response()->json([
-                'status' => true,
-                'product' => $product,
-            ], 200);
-        }catch(\Exception $e){
+        if (!$product) {
             return response()->json([
                 'message' => 'Produto não encontrado.',
-                'erro' => $e->getMessage(),
             ], 404);
         }
+
+        if ($product->image){
+            $product->image = Storage::url($product->image);
+        }
+        return response()->json([
+            'status' => true,
+            'product' => $product,
+        ], 200);
     }
 
+
+    //Criar produto
     public function store(ProductRequest $request) : JsonResponse
     {
         $request->validate([
@@ -54,7 +58,8 @@ class ProductController extends Controller
 
         //Upload de imagem (se for fornecida)
         if ($request->hasFile('image')) {
-            $productData['image'] = $request->file('image')->store('products', 'public');
+            $productData['image'] = $request->file('image')->store('/', 'public');
+            $productData['image'] = Storage::url($productData['image']);
         }
 
         $product = Product::create($productData);
