@@ -174,7 +174,7 @@ Para facilitar os testes da API, um arquivo de coleção do Postman foi exportad
 
 ### Baixar a Coleção
 
-- [Clique aqui para baixar a coleção do Postman](mundpay_collection)
+- [Clique aqui para baixar a coleção do Postman](postman_mundpay_collection.json)
 
 ### Como Usar a Coleção no Postman
 
