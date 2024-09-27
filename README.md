@@ -11,7 +11,6 @@ Este projeto é um backend desenvolvido em Laravel, com suporte para o cadastro,
 - [Executando a Aplicação](#executando-a-aplicação)
 - [Rotas Disponíveis](#rotas-disponíveis)
 - [Testando com o Postman](#testando-com-o-postman)
-- [Executando a Queue](#executando-a-queue)
 - [Possíveis Erros e Soluções](#possíveis-erros-e-soluções)
 
 ## Tecnologias Utilizadas
@@ -216,3 +215,9 @@ Para rodar o servidor local:
 
 ```bash
 php artisan serve
+
+```
+
+## Possiveis Erros e Soluções
+
+- **Link recebido no Mailtrap sem a porta** (Você pode definir a porta 8000 ex: http://localhost:8000/api/products/7)
