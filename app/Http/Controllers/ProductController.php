@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-//Listar produtos do usuario autenticado
+//Listar produtos
     public function index(): JsonResponse
     {
         $product = Product::orderby('id', 'desc')->get();
@@ -22,6 +22,22 @@ class ProductController extends Controller
             'status' => true,
             'product' => $product
         ], 200);
+    }
+
+    public function show($id): JsonResponse
+    {
+       $product = Product::find($id);
+
+        try {
+            return response()->json([
+                'status' => true,
+                'product' => $product,
+            ], 200);
+        }catch(\Exception $e){
+            return response()->json([
+                'message' => 'Produto não encontrado.'
+            ], 404);
+        }
     }
 
     public function store(ProductRequest $request) : JsonResponse
