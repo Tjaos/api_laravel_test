@@ -15,7 +15,7 @@ Route::get('users', [UserController::class, 'index']); //GET - http://localhost:
 
 //Rota pública do produto
 Route::get('/products', [ProductController::class, 'index']);
-Route::get('/products/{id}', [ProductController::class, 'show']);
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('show');
 
 
 

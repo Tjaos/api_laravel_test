@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use App\Mail\ProductCreated;
+use App\Mail\ProductUpdated;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -35,7 +36,8 @@ class ProductController extends Controller
             ], 200);
         }catch(\Exception $e){
             return response()->json([
-                'message' => 'Produto não encontrado.'
+                'message' => 'Produto não encontrado.',
+                'erro' => $e->getMessage(),
             ], 404);
         }
     }
@@ -65,7 +67,6 @@ class ProductController extends Controller
                 'product' => $product,
             ], 201);
         } catch (\Exception $e) {
-            \Log::error('Erro ao enviar e-mail:', ['error' => $e->getMessage()]);
             return response()->json(['message' => 'Produto cadastrado, mas falha ao enviar e-mail!'], 201);
         }
 
