@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::delete('/users/{user}', [UserController::class, 'destroy']); //DELETE -> http://localhost:8000/api/users/1
 });
 
-    //Rota p[ublica do produto
+    //Rota pública do produto
     Route::get('/products', [ProductController::class, 'index']);
 
     //Rotas restritas do produto

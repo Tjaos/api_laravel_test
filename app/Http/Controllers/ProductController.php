@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
+use App\Mail\ProductCreated;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -14,7 +17,7 @@ class ProductController extends Controller
 //Listar produtos do usuario autenticado
     public function index(): JsonResponse
     {
-        $product =Product::orderby('id','desc')->get();
+        $product = Product::orderby('id', 'desc')->get();
         return response()->json([
             'status' => true,
             'product' => $product
@@ -27,7 +30,6 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string',
-            'image' => 'nullable|image'
         ]);
         $productData = $request->only(['name', 'price', 'description']);
         $productData['user_id'] = Auth::id();
@@ -39,7 +41,18 @@ class ProductController extends Controller
 
         $product = Product::create($productData);
 
-        return response()->json(['product' => $product], 201);
+        //Queue de email a ser enviado
+        try {
+            Mail::to($request->user())->queue(new ProductCreated($product));
+            return response()->json([
+                'message' => 'Produto cadastrado com sucesso, e email enviado!',
+                'product' => $product,
+            ], 201);
+        } catch (\Exception $e) {
+            \Log::error('Erro ao enviar e-mail:', ['error' => $e->getMessage()]);
+            return response()->json(['message' => 'Produto cadastrado, mas falha ao enviar e-mail!'], 201);
+        }
+
     }
 
     //Editar produto
@@ -65,7 +78,21 @@ class ProductController extends Controller
             $product->save();
         }
 
-        return response()->json(['product' => $product], 201);
+        //Enviar o email de notificação de edição
+        try {
+            Mail::to($request->user())->queue(new ProductCreated($product));
+            return response()->json([
+                'message' => 'Produto atualizado com sucesso, e email enviado!',
+                'product' => $product,
+            ], 201);
+        } catch (\Exception $e) {
+            Log::error('Erro ao enviar e-mail:', ['error' => $e->getMessage()]);
+            return response()->json(['message' => 'Produto atualizado, mas falha ao enviar e-mail!'], 201);
+        }
+
+
+
+
     }
 
     //Deletar produto
