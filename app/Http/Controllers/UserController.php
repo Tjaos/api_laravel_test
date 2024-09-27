@@ -24,21 +24,21 @@ class UserController extends Controller {
 
 /**
  * Cria novo usuario com os dados fornecidos na requisição.
- * 
+ *
  * @param \App\Http\Requests\UserRequest $request o objeto de requisição que possui dados do usuário
- *a ser criado. 
+ *a ser criado.
  * @return \Illuminate\Http\JsonResponse
  */
     public function store(UserRequest $request) : JsonResponse{
-        try {    
+        try {
             #userCreate
             $user = User::create([
                 'name' => $request->name,
                 'lastname' => $request->lastname,
                 'email' => $request->email,
-                'password' => Hash::make($request->password), 
+                'password' => Hash::make($request->password),
             ]);
-    
+
             return response()->json([
                 'message' => 'Usuário cadastrado com sucesso!',
                 'user'=> $user->makeHidden(['password']) #oculta a senha no retorno
@@ -50,10 +50,10 @@ class UserController extends Controller {
             ], 500);
         }
     }
-    
+
       /**
      * Editar usuário no banco de dados.
-     * 
+     *
      * @param \App\Models\User $user o usuario a ser editado.
      * @return \Illuminate\Http\JsonResponse
      */
@@ -64,7 +64,7 @@ class UserController extends Controller {
                 'name' => $request->name,
                 'lastname' => $request->lastname,
                 'email' => $request->email,
-                'password' => Hash::make($request->password), 
+                'password' => Hash::make($request->password),
             ]);
             return response()->json([
                 'message' => 'Usuário editado com sucesso!',
@@ -77,15 +77,11 @@ class UserController extends Controller {
             ], 500);
         }
 
-        return response()->json([
-            'message' => 'Usuário editado com sucesso!',
-            'user'=> $user->makeHidden(['password']) #oculta a senha no retorno
-        ], 200);
     }
 
     /**
      * Excluir usuário no banco de dados.
-     * 
+     *
      * @param \App\Models\User $user o usuario a ser excluído.
      * @return \Illuminate\Http\JsonResponse
      */
@@ -108,11 +104,6 @@ class UserController extends Controller {
             ], 400);
         }
 
-
-        return response()->json([
-            'message' => 'Usuário excluído com sucesso!',
-            'user'=> $user->makeHidden(['password']) #oculta a senha no retorno
-        ], 200);
 
     }
     public function me(UserRequest $request){

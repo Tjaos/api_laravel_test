@@ -96,7 +96,7 @@ class ProductController extends Controller
 
         //Enviar o email de notificação de edição
         try {
-            Mail::to($request->user())->queue(new ProductCreated($product));
+            Mail::to($request->user())->queue(new ProductUpdated($product));
             return response()->json([
                 'message' => 'Produto atualizado com sucesso, e email enviado!',
                 'product' => $product,
