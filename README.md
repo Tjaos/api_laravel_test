@@ -1,6 +1,6 @@
 # Projeto Backend de Cadastro de Usuários e Produtos
 
-Este projeto é um backend desenvolvido em Laravel, com suporte para o cadastro, edição, e deleção de produtos e usuários. Ele utiliza autenticação com Laravel Sanctum para proteger as rotas.
+Este projeto é um backend desenvolvido em Laravel, com suporte para o cadastro, edição e deleção de produtos e usuários. Ele utiliza autenticação com Laravel Sanctum para proteger as rotas.
 
 ## Índice
 
@@ -10,6 +10,9 @@ Este projeto é um backend desenvolvido em Laravel, com suporte para o cadastro,
 - [Configuração](#configuração)
 - [Executando a Aplicação](#executando-a-aplicação)
 - [Rotas Disponíveis](#rotas-disponíveis)
+- [Testando com o Postman](#testando-com-o-postman)
+- [Executando a Queue](#executando-a-queue)
+- [Possíveis Erros e Soluções](#possíveis-erros-e-soluções)
 
 ## Tecnologias Utilizadas
 
@@ -18,6 +21,7 @@ Este projeto é um backend desenvolvido em Laravel, com suporte para o cadastro,
 - [PHP 8.2](https://www.php.net/releases/8.2/en.php)
 - [Laravel Sanctum](https://laravel.com/docs/11.x/sanctum) - para autenticação
 - [Postman](https://www.postman.com/) - para testes de API
+- [Mailtrap](https://mailtrap.io/) - para testes de envio de email em produção
 
 ## Funcionalidades
 
@@ -26,6 +30,7 @@ Este projeto é um backend desenvolvido em Laravel, com suporte para o cadastro,
 - Proteção de rotas com autenticação via Sanctum
 - Validação de dados ao cadastrar e editar
 - Senhas criptografadas no banco de dados com Hash
+- Envio de email ao cadastrar ou editar produtos
 
 ## Instalação
 
@@ -70,7 +75,7 @@ Este projeto é um backend desenvolvido em Laravel, com suporte para o cadastro,
 
 6. Configure o banco de dados no arquivo `.env`. Exemplo de configuração:
 
-    ```
+    ```plaintext
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
     DB_PORT=3306
@@ -79,10 +84,23 @@ Este projeto é um backend desenvolvido em Laravel, com suporte para o cadastro,
     DB_PASSWORD=sua_senha
     ```
 
-7. Execute as migrações para criar as tabelas no banco de dados:
+7. Configure o Mailtrap no arquivo `.env`:
+
+    ```plaintext
+    MAIL_MAILER=smtp
+    MAIL_HOST=smtp.mailtrap.io
+    MAIL_PORT=2525
+    MAIL_USERNAME=seu_usuario_mailtrap
+    MAIL_PASSWORD=sua_senha_mailtrap
+    MAIL_ENCRYPTION=null
+    MAIL_FROM_ADDRESS="hello@example.com"
+    MAIL_FROM_NAME="${APP_NAME}"
+    ```
+
+    - **Obs:** Lembre-se de rodar a queue para testar o recebimento de emails:
 
     ```bash
-    php artisan migrate
+    php artisan queue:work
     ```
 
 ## Configuração
@@ -90,7 +108,7 @@ Este projeto é um backend desenvolvido em Laravel, com suporte para o cadastro,
 1. Configurar o Laravel Sanctum para autenticação:
 
     ```bash
-    php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+    php artisan vendor:publish --provider="Laravel\\Sanctum\\SanctumServiceProvider"
     ```
 
 2. Certifique-se de que a autenticação esteja configurada no arquivo `config/auth.php`:
@@ -108,6 +126,49 @@ Este projeto é um backend desenvolvido em Laravel, com suporte para o cadastro,
         ],
     ],
     ```
+## Rotas Disponíveis
+
+Abaixo estão listadas as rotas disponíveis na API, juntamente com seus métodos HTTP e descrições:
+
+### Rotas Públicas
+
+- **Login**
+    - **POST** `/`
+        - Realiza o login do usuário.
+
+- **Usuários**
+    - **GET** `/users`
+        - Retorna uma lista de todos os usuários cadastrados.
+    - **POST** `/users`
+        - Cadastra um novo usuário.
+
+- **Produtos**
+    - **GET** `/products`
+        - Retorna uma lista de todos os produtos disponíveis.
+
+### Rotas Restritas (Requer Autenticação)
+
+#### Usuários
+- **PUT** `/users/{user}`
+    - Atualiza os dados do usuário especificado.
+
+- **POST** `/logout/{user}`
+    - Realiza o logout do usuário especificado.
+
+- **DELETE** `/users/{user}`
+    - Remove o usuário especificado.
+
+#### Produtos
+- **POST** `/products`
+    - Cadastra um novo produto.
+
+- **PUT** `/products/{product}`
+    - Atualiza os dados do produto especificado.
+
+- **DELETE** `/products/{product}`
+    - Remove o produto especificado.
+
+
 
 ## Executando a Aplicação
 
